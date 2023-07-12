@@ -17,18 +17,35 @@ body {
     justify-content: center;
     min-height: 100vh;
 }
+.image-container {
+    margin-right: 20px; 
+  }
+  
+  .image-container img {
+    width: 400px; 
+  height: 400px;
+  border-radius: 20px;
+  }
+  
 .text {
-    width: 800px;
+    width: 1000px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 30px;
+    text-align: center; 
 }
 .text h1{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 50px;
+  margin: 0; 
+  animation: fade-in 1s ease-in-out;
 }
 .text h3{
     font-family:Verdana, Tahoma, sans-serif;
     font-size: 20px;
+    animation: slide-in 1s ease-in-out;
 }
 .content {
     display: flex;
@@ -39,10 +56,83 @@ body {
     margin-right: 10px;
     align-items: center;
     margin-top: 30px;
+    text-align: center;
+    
 }
+.items i {
+    font-size: 2rem;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 10px; 
+  }
 .items p{
     font-size: 17px;
 }
-i{
-    font-size: 2rem;
-}
+
+@keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .homeContainer {
+      max-width: 90%;
+    }
+  
+    .image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+  
+    .text {
+      flex-direction: column;
+    }
+
+    .text .text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .text h1 {
+      font-size: 36px;
+      white-space: pre-line; 
+    }
+  
+    .text h3 {
+      font-size: 16px;
+    }
+  
+    .content {
+      flex-direction: column;
+    }
+  
+    .items {
+      margin: 10px 0;
+    }
+  
+    .items i {
+      font-size: 1.5rem;
+    }
+  
+    .items p {
+      font-size: 14px;
+    }
+  }
+  

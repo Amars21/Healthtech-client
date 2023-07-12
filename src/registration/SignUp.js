@@ -1,4 +1,6 @@
 import React from "react";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import './Registration.css';
 import { ChakraProvider, Input, Stack, Button, InputRightElement , InputGroup, Select, Link, Text} from '@chakra-ui/react';
 import { useState } from "react";
@@ -22,6 +24,13 @@ function SignUp() {
           });
         };
 
+        const [selectedDate, setSelectedDate] = useState(null);
+
+        const handleDateChange = (date) => {
+          setSelectedDate(date);
+          formik.setFieldValue('date', date);
+        };
+
         const initialValues = {
             firstName: "",
             lastName: "",
@@ -32,7 +41,6 @@ function SignUp() {
             passwordConfirmation: "",
             role: ""
         }
-
         const validationSchema = Yup.object().shape({
             firstName: Yup.string().required("First name is required field"),
             lastName: Yup.string().required("Last name is required field"),
@@ -40,7 +48,7 @@ function SignUp() {
             password: Yup.string()
                 .min(8, "Password must contain at least 8 charachters")
                 .required("Password is required field"),
-            date: Yup.string().required("Date is required field"),
+            
             email: Yup.string()
                 .email("Invalid email address")
                 .required("Email is required field"),
@@ -48,7 +56,6 @@ function SignUp() {
                 .oneOf([Yup.ref('password'), null], 'Passwords do not match'),
             role: Yup.string().required("Role is required field")
         });
-    
         const formik = useFormik({
             initialValues,
             validationSchema,
@@ -57,7 +64,7 @@ function SignUp() {
 
     return(
         <ChakraProvider>
-            <Stack spacing={3}>
+            <Stack spacing={3} mt={50} px={4}>
               
               
             
@@ -100,17 +107,6 @@ function SignUp() {
      <p className='error-message'>{formik.errors.address}</p>) 
      : null}
 
-  <Input 
-  variant='outline' 
-  type="date"  
-  placeholder='Date of birth'
-  onBlur={formik.handleBlur} 
-  value={formik.values.date} 
-  onChange={formik.handleChange} 
-  />
- {formik.errors.date && formik.touched.date ? (
-     <p className='error-message'>{formik.errors.date}</p>) 
-     : null}
   <Input 
   variant='outline' 
   placeholder='E-mail'  
@@ -178,14 +174,25 @@ function SignUp() {
 {formik.errors.role && formik.touched.role ? (
      <p className='error-message'>{formik.errors.role}</p>) 
      : null}
+    
+    <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="yyyy-MM-dd"
+          placeholderText="Date of birth"
+          className="outline-none"
+        />
+        {formik.errors.date && formik.touched.date ? (
+          <p className="error-message">{formik.errors.date}</p>
+        ) : null}
 
-    <Button type="submit" colorScheme='teal' size='lg'  disabled={!formik.isValid || !formik.dirty} onClick={formik.handleSubmit}>
+    <Button type="submit" colorScheme='linkedin' size='lg'  disabled={!formik.isValid || !formik.dirty} onClick={formik.handleSubmit}>
     Sign Up
   </Button>
 
          <Text>
           Already have an account?{' '}
-        <Link color='teal.500' href='/login'>
+        <Link color='linkedin.500' href='/login'>
           Log in now
         </Link>
         </Text>

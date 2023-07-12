@@ -1,12 +1,10 @@
 import './App.css';
 import DoctorPage from './pages/DoctorPage';
 import PatientPage from './pages/PatientPage'
-import Test from './pages/Test';
-import PageNotFound from './pages/PageNotFound';
+import Homepage from './pages/Homepage';
 import LogIn from './registration/LogIn';
 import SignUp from './registration/SignUp';
-import {BrowserRouter as Router, Route, Routes, Link, Navigate} from 'react-router-dom';
-
+import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 
 function App() {
 
@@ -22,11 +20,12 @@ function App() {
   
   
   return (
+   
     <div className="App">
       <Router>
         
         <Routes>
-          <Route path="/" element={<Test></Test>}></Route>
+          <Route path="/" element={<Homepage></Homepage>}></Route>
           <Route path="/doctor-page" element={<ProtectedRoute authorizedRoles={["Doctor"]}>
               <DoctorPage />
               </ProtectedRoute>} />
@@ -35,10 +34,10 @@ function App() {
               </ProtectedRoute>} />
           <Route path="/login" element={<LogIn></LogIn>}></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
-          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>
+    
   );
 }
 

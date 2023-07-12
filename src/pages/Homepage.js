@@ -1,7 +1,8 @@
 import React from "react";
 import './Homepage.css'
 import { useNavigate } from "react-router-dom";
-import { Button, Stack, ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { Button, Stack, Image, ChakraProvider, extendTheme } from '@chakra-ui/react';
+
 
 const customTheme = extendTheme({
     styles: {
@@ -13,8 +14,9 @@ const customTheme = extendTheme({
     },
   });
 
-function Test(){
+function Homepage(){
 
+    const image=require('../assets/Health-tech.jpg');
     const navigate = useNavigate();
     
     const goToLogin = () =>{
@@ -37,12 +39,23 @@ function Test(){
             </div>
             
         <div className="homeContainer">
-        
 
-    <div className="text">
-        <h1>Everyone deserves <br></br> a great healthcare.</h1>
-        <h3>Your health companion</h3>
-    </div>
+        <div className="text">
+  <div className="image-container">
+    <Image src={image} />
+  </div>
+  
+  <div className="text-container">
+    <h1>
+      Everyone deserves a
+      <br />
+      great healthcare.
+    </h1>
+    <h3>Your health companion</h3>
+  </div>
+  
+</div>
+
 
     <div className="content">
         <div className="items">
@@ -74,4 +87,4 @@ function Test(){
     );
 }
 
-export default Test;
+export default Homepage;

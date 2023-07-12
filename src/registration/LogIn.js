@@ -1,7 +1,7 @@
 import React from "react";
 import './Registration.css';
 import { ChakraProvider, Input, Stack, Button, InputRightElement , InputGroup, Link, Text,Alert,
-  AlertIcon,
+  AlertIcon
   } from '@chakra-ui/react';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,10 +24,12 @@ function LogIn() {
           if (response.data.error) {
             setShowAlert(response.data.error);
           } else {
-            const { accessToken, role, firstName } = response.data;
+            const { accessToken, role, firstName, lastName } = response.data;
             sessionStorage.setItem("accessToken", accessToken);
             sessionStorage.setItem("role", role);
-            sessionStorage.setItem("firstName", firstName)
+            sessionStorage.setItem("firstName", firstName);
+            sessionStorage.setItem("lastName", lastName);
+            
             if (role === "Doctor") {
             navigate("/doctor-page");
             } else if (role === "Patient") {
@@ -42,7 +44,6 @@ function LogIn() {
         password: ""
     }
     
-    
     const validationSchema = Yup.object().shape({
         password: Yup.string()
             .min(8, "Password must contain at least 8 charachters")
@@ -55,19 +56,18 @@ function LogIn() {
     const formik = useFormik({
         initialValues,
         validationSchema,
-        //ovdje dodaj funckiju koja submita formu tipa onSubmit: handleSubmit
     });
 
    return(
        <ChakraProvider>
 
-          <Stack spacing={3}>
+          <Stack spacing={3} mt={200} px={4}>
             {showAlert && (
-      <Alert status='error'>
-        <AlertIcon />
-        {showAlert}
-      </Alert>
-    )}
+          <Alert status='error'>
+          <AlertIcon />
+          {showAlert}
+          </Alert>
+          )}
             <Input 
             variant='outline' 
             placeholder='E-mail'  
@@ -93,7 +93,7 @@ function LogIn() {
         name="password"
       />
       
-      <InputRightElement width='4.5rem'>
+        <InputRightElement width='4.5rem'>
         <Button h='1.75rem' size='sm' onClick={handleClick}>
           {show ? 'Hide' : 'Show'}
         </Button>
@@ -103,19 +103,18 @@ function LogIn() {
         <p className='error-message'>{formik.errors.password}</p>) 
         : null}
 
-        <Button colorScheme='teal' size='lg' onClick={login}>
+        <Button colorScheme='linkedin' size='lg' onClick={login}>
             Log in
         </Button>
 
         <Text>
            Do not have an account yet?{' '}
-        <Link color='teal.500' href='/signup'>
+        <Link color='linkedin.500' href='/signup'>
           Sign up now
         </Link>
         </Text>
-
        </Stack>
-          
+       
         </ChakraProvider>
    );
 }
